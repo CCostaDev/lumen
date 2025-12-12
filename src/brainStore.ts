@@ -83,3 +83,11 @@ export function deleteBrainItem(userId: string, id: number): boolean {
   saveStore(store);
   return true;
 }
+
+export function getBrainItemById(
+  userId: string,
+  id: number
+): BrainItem | undefined {
+  const store = loadStore();
+  return store.items.find((item) => item.id === id && item.userId === userId);
+}

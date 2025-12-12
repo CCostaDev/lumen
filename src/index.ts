@@ -13,6 +13,7 @@ import {
   getBrainItems,
   deleteBrainItem,
   BrainItemType,
+  getBrainItemById,
 } from "./brainStore";
 
 const token = process.env.DISCORD_TOKEN;
@@ -74,18 +75,22 @@ client.on(Events.InteractionCreate, async (interaction) => {
         const selected = interaction.values[0];
         const id = Number(selected);
 
-        const success = deleteBrainItem(interaction.user.id, id);
+        const item = getBrainItemById(interaction.user.id, id);
 
-        if (!success) {
+        if (!item) {
           await interaction.update({
-            content: `❌ Lumen couldn't find an item with id \`#${id}\`.`,
+            content: `❌ Lumen couldn't find that item in your brain.`,
             components: [],
           });
           return;
         }
 
+        deleteBrainItem(interaction.user.id, id);
+
         await interaction.update({
-          content: `🧽 Removed item \`#${id}\` from your brain.`,
+          content: `🧽 Removed ${typeEmoji[item.type]} **${item.type}** - ${
+            item.text
+          }.`,
           components: [],
         });
       }
@@ -116,7 +121,7 @@ async function handleBrainCommand(interaction: ChatInputCommandInteraction) {
       const item = addBrainItem(interaction.user.id, type, text);
 
       await interaction.reply({
-        content: `🧠 Stored **${type}** #${item.id}: ${item.text}`,
+        content: `🧠 Stored ${typeEmoji[type]} **${type}**: ${item.text}`,
         flags: MessageFlags.Ephemeral,
       });
       return;
