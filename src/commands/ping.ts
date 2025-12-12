@@ -1,9 +1,5 @@
-import { SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 
-export const data = new SlashCommandBuilder()
-  .setName("ping")
-  .setDescription("Replies with Lumen's response time!");
-
-export async function execute(interaction: any) {
+export async function execute(interaction: ChatInputCommandInteraction) {
   await interaction.reply("Pong 🕯️");
 }
