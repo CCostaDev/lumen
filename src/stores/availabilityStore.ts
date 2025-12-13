@@ -98,3 +98,15 @@ export function getUserAvailability(
     (e) => e.userId === userId && e.weekKey === weekKey
   );
 }
+
+export function clearWeekForEveryone(weekKey: string): number {
+  const store = loadStore();
+  const before = store.entries.length;
+
+  store.entries = store.entries.filter((e) => e.weekKey !== weekKey);
+
+  const removed = before - store.entries.length;
+  if (removed > 0) saveStore(store);
+
+  return removed;
+}

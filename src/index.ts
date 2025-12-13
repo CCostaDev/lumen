@@ -14,6 +14,7 @@ import * as availSet from "./commands/availability/set";
 import * as availView from "./commands/availability/view";
 import * as availBest from "./commands/availability/best";
 import * as availClear from "./commands/availability/clear";
+import * as availReset from "./commands/availability/reset";
 
 import * as tzSet from "./commands/timezone/set";
 import * as tzShow from "./commands/timezone/show";
@@ -40,6 +41,7 @@ const chatHandlers: Record<string, (i: any) => Promise<void>> = {
   "availability:view": availView.execute,
   "availability:best": availBest.execute,
   "availability:clear": availClear.execute,
+  "availability:reset": availReset.execute,
 
   "tz:set": tzSet.execute,
   "tz:show": tzShow.execute,

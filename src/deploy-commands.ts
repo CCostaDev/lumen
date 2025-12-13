@@ -207,6 +207,18 @@ const commands = [
       sub
         .setName("clear")
         .setDescription("Clear your availability for this week")
+    )
+    // /availability reset
+    .addSubcommand((sub) =>
+      sub
+        .setName("reset")
+        .setDescription("Reset availability for everyone (new week)")
+        .addBooleanOption((opt) =>
+          opt
+            .setName("public")
+            .setDescription("Announce the reset in the channel")
+            .setRequired(false)
+        )
     ),
 ].map((cmd) => cmd.toJSON());
 
