@@ -1,3 +1,5 @@
 node_modules
 .env
 brain-data.json
+user-settings.json
+availability-data.json

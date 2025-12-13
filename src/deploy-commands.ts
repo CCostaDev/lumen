@@ -111,6 +111,103 @@ const commands = [
             )
         )
     ),
+
+  // -------------------------
+  // Timezone (simple offset)
+  // -------------------------
+  new SlashCommandBuilder()
+    .setName("tz")
+    .setDescription("Set/show your timezone offset")
+    .addSubcommand((sub) =>
+      sub
+        .setName("set")
+        .setDescription(
+          "Set your timezone offset in minutes (e.g. London = -60)"
+        )
+        .addIntegerOption((opt) =>
+          opt
+            .setName("offset")
+            .setDescription("Offset from server time, in minutes (e.g. -60)")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((sub) =>
+      sub.setName("show").setDescription("Show your saved timezone offset")
+    ),
+
+  // -------------------------
+  // Availability (weekly)
+  // -------------------------
+  new SlashCommandBuilder()
+    .setName("availability")
+    .setDescription("Set/view weekly availability and find overlaps")
+    .addSubcommand((sub) =>
+      sub
+        .setName("set")
+        .setDescription("Set your availability (in your local time)")
+        .addIntegerOption((opt) =>
+          opt
+            .setName("day")
+            .setDescription("Day of week")
+            .setRequired(true)
+            .addChoices(
+              { name: "Mon", value: 0 },
+              { name: "Tue", value: 1 },
+              { name: "Wed", value: 2 },
+              { name: "Thu", value: 3 },
+              { name: "Fri", value: 4 },
+              { name: "Sat", value: 5 },
+              { name: "Sun", value: 6 }
+            )
+        )
+        .addStringOption((opt) =>
+          opt
+            .setName("start")
+            .setDescription("Start time (HH:mm) e.g. 20:00")
+            .setRequired(true)
+        )
+        .addStringOption((opt) =>
+          opt
+            .setName("end")
+            .setDescription("End time (HH:mm) e.g. 23:00")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((sub) =>
+      sub
+        .setName("view")
+        .setDescription("View availability for this week")
+        .addBooleanOption((opt) =>
+          opt
+            .setName("public")
+            .setDescription("Post in the channel instead of only you")
+            .setRequired(false)
+        )
+    )
+    .addSubcommand((sub) =>
+      sub
+        .setName("best")
+        .setDescription("Find the best overlap times for this week")
+        .addIntegerOption((opt) =>
+          opt
+            .setName("min_players")
+            .setDescription(
+              "Minimum number of people needed (default: everyone)"
+            )
+            .setRequired(false)
+        )
+        .addBooleanOption((opt) =>
+          opt
+            .setName("public")
+            .setDescription("Post in the channel instead of only you")
+            .setRequired(false)
+        )
+    )
+    .addSubcommand((sub) =>
+      sub
+        .setName("clear")
+        .setDescription("Clear your availability for this week")
+    ),
 ].map((cmd) => cmd.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(token);

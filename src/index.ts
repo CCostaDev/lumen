@@ -10,6 +10,14 @@ import * as brainFocus from "./commands/brain/focus";
 import * as brainDelete from "./commands/brain/delete";
 import * as brainSelectDelete from "./commands/brain/selectDelete";
 
+import * as availSet from "./commands/availability/set";
+import * as availView from "./commands/availability/view";
+import * as availBest from "./commands/availability/best";
+import * as availClear from "./commands/availability/clear";
+
+import * as tzSet from "./commands/timezone/set";
+import * as tzShow from "./commands/timezone/show";
+
 const token = process.env.DISCORD_TOKEN;
 const ownerId = process.env.OWNER_ID;
 
@@ -27,6 +35,14 @@ const chatHandlers: Record<string, (i: any) => Promise<void>> = {
   "brain:random": brainRandom.execute,
   "brain:focus": brainFocus.execute,
   "brain:delete": brainDelete.execute,
+
+  "availability:set": availSet.execute,
+  "availability:view": availView.execute,
+  "availability:best": availBest.execute,
+  "availability:clear": availClear.execute,
+
+  "tz:set": tzSet.execute,
+  "tz:show": tzShow.execute,
 };
 
 // Component handlers (select menus/buttons)
@@ -52,10 +68,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
         return;
       }
 
-      const key =
-        name === "brain"
-          ? `${name}:${interaction.options.getSubcommand()}`
-          : name;
+      const key = ["brain", "availability", "tz"].includes(name)
+        ? `${name}:${interaction.options.getSubcommand()}`
+        : name;
 
       const handler = chatHandlers[key];
       if (!handler) return;
