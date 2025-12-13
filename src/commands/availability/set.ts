@@ -36,7 +36,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     const existing = getUserAvailability(userId, weekKey);
     const ranges = existing?.ranges ?? [];
 
-    // Replace range for that day (keep it simple for now)
+    // Replace range for that day
     const next = ranges.filter((r) => r.day !== day);
     next.push({ day, startMin: startMinServer, endMin: endMinServer });
 

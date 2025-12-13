@@ -27,7 +27,7 @@ export function getWeekKeyServer(now = new Date()): string {
   // back to Monday
   d.setDate(d.getDate() - day);
 
-  // IMPORTANT: format using local date parts (not toISOString)
+  // !IMPORTANT: format using local date parts (not toISOString)
   return formatLocalYYYYMMDD(d);
 }
 

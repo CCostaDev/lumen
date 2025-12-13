@@ -112,9 +112,7 @@ const commands = [
         )
     ),
 
-  // -------------------------
   // Timezone (simple offset)
-  // -------------------------
   new SlashCommandBuilder()
     .setName("tz")
     .setDescription("Set/show your timezone offset")
@@ -135,12 +133,11 @@ const commands = [
       sub.setName("show").setDescription("Show your saved timezone offset")
     ),
 
-  // -------------------------
   // Availability (weekly)
-  // -------------------------
   new SlashCommandBuilder()
     .setName("availability")
     .setDescription("Set/view weekly availability and find overlaps")
+    // /availability set
     .addSubcommand((sub) =>
       sub
         .setName("set")
@@ -173,6 +170,7 @@ const commands = [
             .setRequired(true)
         )
     )
+    // /availability view
     .addSubcommand((sub) =>
       sub
         .setName("view")
@@ -184,6 +182,7 @@ const commands = [
             .setRequired(false)
         )
     )
+    // /availability best
     .addSubcommand((sub) =>
       sub
         .setName("best")
@@ -203,6 +202,7 @@ const commands = [
             .setRequired(false)
         )
     )
+    // /availability clear
     .addSubcommand((sub) =>
       sub
         .setName("clear")
